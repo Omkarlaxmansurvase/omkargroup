@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New flats and projects in Navi Mumbai and Panvel</title>
+<meta name="description" content="Browse new residential projects with floor plans, amenities and price details. Book a site visit through an authorized channel partner.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="header solid"><a class="brand" href="/"><span id="brandName"></span><small>Authorized channel partner</small></a></header>
+<main class="section home">
+  <h1>Current projects</h1>
+  <p class="sub">Pick a project to see floor plans, amenities and book a site visit.</p>
+  <div class="grid-3" id="list"><p class="muted">Loading projects...</p></div>
+</main>
+<footer class="footer"><p class="small">Independent marketing site of an authorized channel partner. Not an official builder website.</p></footer>
+<script src="/config.js"></script>
+<script>
+  const e = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  document.getElementById("brandName").textContent = CONFIG.BROKER_NAME;
+  fetch("/api/projects").then(r => r.json()).then(list => {
+    document.getElementById("list").innerHTML = list.length ? list.map(p => `
+      <a class="card pcard" href="/${e(p.slug)}">
+        ${p.hero_image ? `<img src="${e(p.hero_image)}" alt="${e(p.name)}" loading="lazy">` : ""}
+        <div><h3>${e(p.name)}</h3><p class="muted">${e(p.location)}</p>
+        <p>${e((p.configurations || []).map(c => c.type).join(" & "))}</p></div>
+      </a>`).join("") : "<p class='muted'>No projects yet.</p>";
+  }).catch(() => (document.getElementById("list").innerHTML = "<p class='muted'>Could not load projects.</p>"));
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESC}}">
+<link rel="canonical" href="{{URL}}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESC}}">
+<meta property="og:image" content="{{IMAGE}}">
+<meta property="og:url" content="{{URL}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<script>window.__PROJECT__ = {{DATA}};</script>
+</head>
+<body>
+<header class="header" id="header">
+  <a class="brand" href="#top"><span id="brandName"></span><small id="brandBy"></small></a>
+  <nav class="nav" id="nav"></nav>
+  <a class="btn btn-gold btn-sm" href="#contact">Book site visit</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+
+<main id="top"></main>
+
+<footer class="footer">
+  <p><b data-broker></b>, authorized channel partner. Agent RERA: <span data-rera></span></p>
+  <p id="projRera"></p>
+  <p class="small">This is an independent marketing page by a channel partner, not the builder's official website. Images are artistic impressions. Details may change without notice; confirm everything at the site visit.</p>
+</footer>
+
+<a class="wa-float" data-wa href="#" aria-label="Chat on WhatsApp">WhatsApp</a>
+<div class="mobile-bar"><a data-call href="#">Call now</a><a data-wa href="#">WhatsApp</a></div>
+<div class="lightbox" id="lightbox" hidden><img alt=""><button aria-label="Close">&times;</button></div>
+
+<script src="/config.js"></script>
+<script src="/project.js"></script>
+<script src="/script.js"></script>
+</body>
+</html>

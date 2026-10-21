@@ -3,33 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>New flats and projects in Navi Mumbai and Panvel</title>
-<meta name="description" content="Browse new residential projects with floor plans, amenities and price details. Book a site visit through an authorized channel partner.">
+<title>Homes and projects in Navi Mumbai and Panvel | Laxman Survase</title>
+<meta name="description" content="Explore residential projects in Navi Mumbai and Panvel with Laxman Survase, an authorized channel partner. View project details and plan a site visit.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<header class="header solid"><a class="brand" href="/"><span id="brandName"></span><small>Authorized channel partner</small></a></header>
-<main class="section home">
-  <h1>Current projects</h1>
-  <p class="sub">Pick a project to see floor plans, amenities and book a site visit.</p>
-  <div class="grid-3" id="list"><p class="muted">Loading projects...</p></div>
+<header class="header solid home-header">
+  <a class="brand" href="/" aria-label="Home"><span id="brandName"></span><small>Authorized channel partner</small></a>
+  <nav class="home-nav" aria-label="Main navigation">
+    <a href="#about">About</a><a href="#projects">Projects</a><a href="#locations">Locations</a><a href="#contact">Contact</a>
+  </nav>
+  <a class="btn btn-gold btn-sm home-header-cta" href="#projects">Explore projects</a>
+</header>
+<main class="home-page">
+  <section class="home-hero">
+    <div class="home-hero-copy">
+      <p class="home-eyebrow">Navi Mumbai · Panvel</p>
+      <h1>Find a home that feels right for you.</h1>
+      <p>Explore residential projects, compare the details that matter, and connect with us to plan your next step.</p>
+      <div class="home-hero-actions"><a class="btn btn-gold" href="#projects">Explore all projects <span aria-hidden="true">→</span></a><a class="home-text-link" href="#about">Get to know us</a></div>
+    </div>
+    <div class="home-hero-image"><img src="/images/facade.jpg" alt="Residential homes in Navi Mumbai" fetchpriority="high"><span>Thoughtful guidance for your home search</span></div>
+  </section>
+
+  <section class="home-about" id="about">
+    <div class="home-section-kicker">Who we are</div>
+    <div class="home-about-copy"><h2>Local guidance, from first look to site visit.</h2><p><span data-home-broker></span> is an independent authorized channel partner helping homebuyers explore residential projects around Navi Mumbai and Panvel. We make it easier to review project details, understand available configurations, and arrange a visit with the project team.</p><a class="home-text-link" href="#contact">Talk with us <span aria-hidden="true">→</span></a></div>
+  </section>
+
+  <section class="home-projects" id="projects">
+    <div class="home-section-heading"><div><div class="home-section-kicker">Find your next home</div><h2>Our projects</h2><p>Browse a few featured projects, or view the full list to filter by your needs.</p></div><div class="home-project-heading-actions"><span id="projectCount" class="project-count">Loading projects</span><a class="home-view-all" href="/projects.html">View all projects <span aria-hidden="true">→</span></a></div></div>
+    <div class="home-project-grid" id="list"><p class="muted">Loading projects...</p></div>
+  </section>
+
+  <section class="home-locations" id="locations">
+    <div class="home-locations-heading"><div class="home-section-kicker">Around Navi Mumbai</div><h2>Explore project locations</h2><p>Open a project location in Google Maps to see the area and plan your route.</p></div>
+    <div class="home-location-list" id="locationList"><p class="muted">Loading locations...</p></div>
+  </section>
+
+  <section class="home-contact" id="contact">
+    <div><div class="home-section-kicker">Get in touch</div><h2>Let’s find the right place for you.</h2><p>Ask a question or arrange a visit. We’ll help you connect with the project team.</p></div>
+    <div class="home-contact-actions"><a class="btn btn-home-white" data-home-call href="#contact">Call <span data-home-phone></span></a><a class="btn btn-home-white" data-home-whatsapp href="#contact" target="_blank" rel="noopener">WhatsApp us <span aria-hidden="true">↗</span></a><a class="home-contact-email" data-home-email href="#contact"></a></div>
+  </section>
 </main>
-<footer class="footer"><p class="small">Independent marketing site of an authorized channel partner. Not an official builder website.</p></footer>
+<footer class="home-footer">
+  <a class="home-footer-brand" href="/"><span data-footer-broker></span><small>Authorized channel partner</small></a>
+  <p class="home-disclaimer">Independent marketing site of an authorized channel partner. This is not an official builder website. Project details and availability may change; please confirm with the project team.</p>
+  <div class="home-footer-contact"><strong>Contact</strong><a data-home-call href="#contact">Call <span data-home-phone></span></a><a data-home-email href="#contact"></a><a data-home-whatsapp href="#contact" target="_blank" rel="noopener">WhatsApp</a></div>
+  <p class="home-copyright">© <span id="currentYear"></span> <span data-footer-broker></span></p>
+</footer>
 <script src="/config.js"></script>
 <script>
   const e = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  document.getElementById("brandName").textContent = CONFIG.BROKER_NAME;
+  const safeLink = value => { try { const url = new URL(value); return ["http:", "https:"].includes(url.protocol) ? url.href : ""; } catch { return ""; } };
+  const broker = CONFIG.BROKER_NAME || "Your property consultant";
+  document.getElementById("brandName").textContent = broker;
+  document.querySelectorAll("[data-home-broker], [data-footer-broker]").forEach(el => el.textContent = broker);
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+  const digits = String(CONFIG.PHONE || "").replace(/\D/g, "");
+  const callLinks = document.querySelectorAll("[data-home-call]");
+  if (digits) { callLinks.forEach(link => link.href = `tel:+${digits}`); document.querySelectorAll("[data-home-phone]").forEach(el => el.textContent = `+${digits}`); }
+  else callLinks.forEach(link => link.hidden = true);
+  const emailLinks = document.querySelectorAll("[data-home-email]");
+  if (CONFIG.EMAIL) emailLinks.forEach(link => { link.href = `mailto:${encodeURIComponent(CONFIG.EMAIL)}`; link.textContent = CONFIG.EMAIL; });
+  else emailLinks.forEach(link => link.hidden = true);
+  const whatsappLinks = document.querySelectorAll("[data-home-whatsapp]");
+  if (CONFIG.WHATSAPP) whatsappLinks.forEach(link => link.href = `https://wa.me/${String(CONFIG.WHATSAPP).replace(/\D/g, "")}`);
+  else whatsappLinks.forEach(link => link.hidden = true);
   fetch("/api/projects").then(r => r.json()).then(list => {
-    document.getElementById("list").innerHTML = list.length ? list.map(p => `
-      <a class="card pcard" href="/${e(p.slug)}">
-        ${p.hero_image ? `<img src="${e(p.hero_image)}" alt="${e(p.name)}" loading="lazy">` : ""}
-        <div><h3>${e(p.name)}</h3><p class="muted">${e(p.location)}</p>
-        <p>${e((p.configurations || []).map(c => c.type).join(" & "))}</p></div>
-      </a>`).join("") : "<p class='muted'>No projects yet.</p>";
-  }).catch(() => (document.getElementById("list").innerHTML = "<p class='muted'>Could not load projects.</p>"));
+    const projects = Array.isArray(list) ? list : [];
+    document.getElementById("projectCount").textContent = `${projects.length} ${projects.length === 1 ? "project" : "projects"}`;
+    const featuredProjects = projects.slice(0, 3);
+    document.getElementById("list").innerHTML = featuredProjects.length ? featuredProjects.map(p => {
+      const types = (p.configurations || []).map(c => c.type).filter(Boolean);
+      return `<a class="home-project-card" href="/${e(p.slug)}">
+        <div class="home-project-image">${p.hero_image ? `<img src="${e(p.hero_image)}" alt="${e(p.name)}" loading="lazy">` : `<img src="/images/facade.jpg" alt="Residential project" loading="lazy">`}<span class="home-image-arrow" aria-hidden="true">↗</span></div>
+        <div class="home-project-info"><p class="home-project-location">${e(p.location || "Navi Mumbai")}</p><h3>${e(p.name)}</h3><p class="home-project-types">${e(types.join(" · ") || "View project details")}</p><span class="home-project-link">Explore project <span aria-hidden="true">→</span></span></div>
+      </a>`;
+    }).join("") : "<p class='home-empty'>No active projects are available right now. Please check back soon.</p>";
+    document.getElementById("projectCount").textContent = projects.length > 3 ? `Showing 3 of ${projects.length}` : `${projects.length} ${projects.length === 1 ? "project" : "projects"}`;
+    const locations = [...new Map(projects.filter(p => p.location).map(p => [p.location, p])).values()];
+    document.getElementById("locationList").innerHTML = locations.length ? locations.map(p => {
+      const map = safeLink(p.map_link) || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.location)}`;
+      return `<a class="home-location-link" href="${e(map)}" target="_blank" rel="noopener"><span class="home-pin" aria-hidden="true">⌖</span><span><strong>${e(p.location)}</strong><small>${e(p.name)}</small></span><span class="home-location-open">Open in Maps ↗</span></a>`;
+    }).join("") : "<p class='home-empty'>Project locations will appear here when available.</p>";
+  }).catch(() => {
+    document.getElementById("projectCount").textContent = "Projects unavailable";
+    document.getElementById("list").innerHTML = "<p class='home-empty'>We couldn’t load the projects. Please try again in a little while.</p>";
+    document.getElementById("locationList").innerHTML = "<p class='home-empty'>Project locations are temporarily unavailable.</p>";
+  });
 </script>
 </body>
 </html>

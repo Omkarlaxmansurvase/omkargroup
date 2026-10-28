@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Homes and projects in Navi Mumbai and Panvel | Laxman Survase</title>
-<meta name="description" content="Explore residential projects in Navi Mumbai and Panvel with Laxman Survase, an authorized channel partner. View project details and plan a site visit.">
+<title>Homes and projects in Navi Mumbai and Panvel | Omkar Enterprises</title>
+<meta name="description" content="Explore residential projects in Navi Mumbai and Panvel with Omkar Enterprises, an authorized channel partner. View project details and plan a site visit.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script src="/motion.js" defer></script>
 </head>
 <body>
 <header class="header solid home-header">
@@ -20,33 +22,45 @@
 </header>
 <main class="home-page">
   <section class="home-hero">
-    <div class="home-hero-copy">
-      <p class="home-eyebrow">Navi Mumbai · Panvel</p>
+    <div class="home-hero-copy" data-reveal>
+      <p class="home-eyebrow"><span class="home-eyebrow-dot" aria-hidden="true"></span>Navi Mumbai · Panvel</p>
       <h1>Find a home that feels right for you.</h1>
       <p>Explore residential projects, compare the details that matter, and connect with us to plan your next step.</p>
       <div class="home-hero-actions"><a class="btn btn-gold" href="#projects">Explore all projects <span aria-hidden="true">→</span></a><a class="home-text-link" href="#about">Get to know us</a></div>
+      <ul class="home-highlights" aria-label="What we help with">
+        <li>Compare configurations</li><li>Site visit support</li><li>Direct project team contact</li>
+      </ul>
     </div>
-    <div class="home-hero-image"><img src="/images/facade.jpg" alt="Residential homes in Navi Mumbai" fetchpriority="high"><span>Thoughtful guidance for your home search</span></div>
+    <div class="home-hero-image" data-reveal="right"><div class="home-hero-media"><img src="/images/facade.jpg" alt="Residential homes in Navi Mumbai" fetchpriority="high"></div><span>Thoughtful guidance for your home search</span></div>
   </section>
 
   <section class="home-about" id="about">
-    <div class="home-section-kicker">Who we are</div>
-    <div class="home-about-copy"><h2>Local guidance, from first look to site visit.</h2><p><span data-home-broker></span> is an independent authorized channel partner helping homebuyers explore residential projects around Navi Mumbai and Panvel. We make it easier to review project details, understand available configurations, and arrange a visit with the project team.</p><a class="home-text-link" href="#contact">Talk with us <span aria-hidden="true">→</span></a></div>
+    <div class="home-section-kicker" data-reveal>Who we are</div>
+    <div class="home-about-copy" data-reveal style="--d:.1s"><h2>Local guidance, from first look to site visit.</h2><p><span data-home-broker></span> is an independent authorized channel partner helping homebuyers explore residential projects around Navi Mumbai and Panvel. We make it easier to review project details, understand available configurations, and arrange a visit with the project team.</p><a class="home-text-link" href="#contact">Talk with us <span aria-hidden="true">→</span></a></div>
+  </section>
+
+  <section class="home-steps" aria-label="How it works">
+    <div class="home-steps-heading" data-reveal><div class="home-section-kicker">How it works</div><h2>Three simple steps to your visit.</h2></div>
+    <ol class="home-steps-list">
+      <li data-reveal style="--d:.05s"><span class="home-step-num">01</span><h3>Browse projects</h3><p>Review configurations, amenities and locations at your own pace.</p></li>
+      <li data-reveal style="--d:.15s"><span class="home-step-num">02</span><h3>Ask what matters</h3><p>Call or message us with your questions about a project.</p></li>
+      <li data-reveal style="--d:.25s"><span class="home-step-num">03</span><h3>Plan a site visit</h3><p>We help you connect with the project team and arrange a visit.</p></li>
+    </ol>
   </section>
 
   <section class="home-projects" id="projects">
-    <div class="home-section-heading"><div><div class="home-section-kicker">Find your next home</div><h2>Our projects</h2><p>Browse a few featured projects, or view the full list to filter by your needs.</p></div><div class="home-project-heading-actions"><span id="projectCount" class="project-count">Loading projects</span><a class="home-view-all" href="/projects.html">View all projects <span aria-hidden="true">→</span></a></div></div>
+    <div class="home-section-heading" data-reveal><div><div class="home-section-kicker">Find your next home</div><h2>Our projects</h2><p>Browse a few featured projects, or view the full list to filter by your needs.</p></div><div class="home-project-heading-actions"><span id="projectCount" class="project-count">Loading projects</span><a class="home-view-all" href="/projects.html">View all projects <span aria-hidden="true">→</span></a></div></div>
     <div class="home-project-grid" id="list"><p class="muted">Loading projects...</p></div>
   </section>
 
   <section class="home-locations" id="locations">
-    <div class="home-locations-heading"><div class="home-section-kicker">Around Navi Mumbai</div><h2>Explore project locations</h2><p>Open a project location in Google Maps to see the area and plan your route.</p></div>
+    <div class="home-locations-heading" data-reveal><div class="home-section-kicker">Around Navi Mumbai</div><h2>Explore project locations</h2><p>Open a project location in Google Maps to see the area and plan your route.</p></div>
     <div class="home-location-list" id="locationList"><p class="muted">Loading locations...</p></div>
   </section>
 
   <section class="home-contact" id="contact">
-    <div><div class="home-section-kicker">Get in touch</div><h2>Let’s find the right place for you.</h2><p>Ask a question or arrange a visit. We’ll help you connect with the project team.</p></div>
-    <div class="home-contact-actions"><a class="btn btn-home-white" data-home-call href="#contact">Call <span data-home-phone></span></a><a class="btn btn-home-white" data-home-whatsapp href="#contact" target="_blank" rel="noopener">WhatsApp us <span aria-hidden="true">↗</span></a><a class="home-contact-email" data-home-email href="#contact"></a></div>
+    <div data-reveal><div class="home-section-kicker">Get in touch</div><h2>Let’s find the right place for you.</h2><p>Ask a question or arrange a visit. We’ll help you connect with the project team.</p></div>
+    <div class="home-contact-actions" data-reveal style="--d:.12s"><a class="btn btn-home-white" data-home-call href="#contact">Call <span data-home-phone></span></a><a class="btn btn-home-white" data-home-whatsapp href="#contact" target="_blank" rel="noopener">WhatsApp us <span aria-hidden="true">↗</span></a><a class="home-contact-email" data-home-email href="#contact"></a></div>
   </section>
 </main>
 <footer class="home-footer">
@@ -59,7 +73,7 @@
 <script>
   const e = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const safeLink = value => { try { const url = new URL(value); return ["http:", "https:"].includes(url.protocol) ? url.href : ""; } catch { return ""; } };
-  const broker = CONFIG.BROKER_NAME || "Your property consultant";
+  const broker = "Omkar Enterprises";
   document.getElementById("brandName").textContent = broker;
   document.querySelectorAll("[data-home-broker], [data-footer-broker]").forEach(el => el.textContent = broker);
   document.getElementById("currentYear").textContent = new Date().getFullYear();

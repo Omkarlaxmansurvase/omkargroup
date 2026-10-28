@@ -25,9 +25,90 @@
 
   const uniqueValues = (values) => [...new Set(values.map((value) => String(value || "").trim()).filter(Boolean))]
     .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+  const customSelects = new WeakMap();
   const fillSelect = (select, firstLabel, values) => {
     select.innerHTML = `<option value="">${firstLabel}</option>` + values.map((value) => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+    customSelects.get(select)?.refresh();
   };
+
+  function enhanceSelect(select) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "project-custom-select";
+    const label = select.closest("label");
+    const labelText = [...(label?.childNodes || [])].find((node) => node.nodeType === Node.TEXT_NODE)?.textContent.trim() || "Filter";
+    select.classList.add("project-select-native");
+    select.tabIndex = -1;
+    select.parentNode.insertBefore(wrapper, select);
+    wrapper.appendChild(select);
+
+    const trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.className = "project-select-trigger";
+    trigger.setAttribute("aria-haspopup", "listbox");
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.setAttribute("aria-label", `${labelText} filter`);
+    const value = document.createElement("span");
+    const caret = document.createElement("span");
+    caret.className = "project-select-caret";
+    caret.setAttribute("aria-hidden", "true");
+    trigger.append(value, caret);
+
+    const menu = document.createElement("div");
+    menu.className = "project-select-menu";
+    menu.id = `${select.id}-options`;
+    menu.setAttribute("role", "listbox");
+    menu.setAttribute("aria-label", labelText);
+    menu.hidden = true;
+    trigger.setAttribute("aria-controls", menu.id);
+    wrapper.append(trigger, menu);
+
+    const close = (returnFocus = false) => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      wrapper.classList.remove("is-open");
+      if (returnFocus) trigger.focus();
+    };
+    const refresh = () => {
+      value.textContent = select.selectedOptions[0]?.textContent || "Choose";
+      menu.innerHTML = [...select.options].map((option) => `<button type="button" class="project-select-option" role="option" aria-selected="${option.value === select.value}" data-select-value="${esc(option.value)}">${esc(option.textContent)}</button>`).join("");
+    };
+    const open = (focusSelected = false) => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      wrapper.classList.add("is-open");
+      if (focusSelected) (menu.querySelector('[aria-selected="true"]') || menu.querySelector("button"))?.focus();
+    };
+    trigger.addEventListener("click", () => menu.hidden ? open() : close());
+    trigger.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown") { event.preventDefault(); open(true); }
+    });
+    wrapper.addEventListener("focusout", (event) => {
+      if (!wrapper.contains(event.relatedTarget)) close();
+    });
+    menu.addEventListener("click", (event) => {
+      const option = event.target.closest("[data-select-value]");
+      if (!option) return;
+      select.value = option.dataset.selectValue;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      refresh();
+      close(true);
+    });
+    menu.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") { event.preventDefault(); close(true); }
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        const options = [...menu.querySelectorAll("button")];
+        const index = options.indexOf(document.activeElement);
+        options[(index + (event.key === "ArrowDown" ? 1 : options.length - 1)) % options.length]?.focus();
+      }
+    });
+    select.addEventListener("change", refresh);
+    document.addEventListener("pointerdown", (event) => { if (!wrapper.contains(event.target)) close(); });
+    refresh();
+    customSelects.set(select, { refresh });
+  }
+
+  document.querySelectorAll(".project-filter-grid select").forEach(enhanceSelect);
 
   function renderAmenityOptions() {
     const amenities = uniqueValues(allProjects.flatMap((project) => project.amenities || []));

@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script src="/motion.js" defer></script>
 </head>
 <body>
 <header class="header solid home-header">
@@ -18,14 +20,14 @@
 </header>
 
 <main class="all-projects-page">
-  <section class="all-projects-intro">
+  <section class="all-projects-intro" data-reveal>
     <a class="home-text-link back-home" href="/">← Home</a>
     <p class="home-section-kicker">Find your next home</p>
     <h1>Explore all projects</h1>
     <p>Search projects and narrow the list by area, home configuration, builder, and amenities.</p>
   </section>
 
-  <section class="project-browser" aria-label="Project search and filters">
+  <section class="project-browser" aria-label="Project search and filters" data-reveal style="--d:.1s">
     <div class="project-filter-grid">
       <label class="project-search">Search projects<input id="projectSearch" type="search" placeholder="Name, area, builder or detail" autocomplete="off"></label>
       <label>Location<select id="locationFilter"><option value="">All locations</option></select></label>

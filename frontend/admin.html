@@ -136,6 +136,28 @@
   .editor-actions{justify-content:flex-end}
   .editor-actions .btn{min-width:180px}
   @media(max-width:700px){.admin-page .abar{gap:1rem;padding:.65rem 5vw}.admin-page .abar nav{gap:1rem}.admin-page .wrap{padding:1.5rem 5vw 3rem}}
+  @media(max-width:560px){
+    .admin-page .abar{gap:.55rem .8rem;padding:.55rem 4vw}
+    .admin-page .abar nav{order:3;width:100%;margin:0;gap:1.25rem;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
+    .admin-page .abar nav::-webkit-scrollbar{display:none}
+    .admin-page .abar nav button{flex:0 0 auto;min-height:42px;white-space:nowrap}
+    .admin-page .abar #logout{order:2;margin-left:auto;min-height:40px;white-space:nowrap}
+    .admin-page .wrap{padding:1.2rem 4vw 5rem}
+    .admin-page .box{width:auto;margin:10vh 1rem 0}
+    .admin-page .bar{align-items:stretch;gap:.65rem}
+    .admin-page .bar h2{flex:1 0 100%;margin:0}
+    .admin-page .bar select{width:100%;min-height:44px}
+    .admin-page .bar .spacer{display:none}
+    .admin-page .bar .btn{width:100%}
+    .admin-page .export-note{margin:.1rem 0 .8rem}
+    .admin-page #pform{padding:1rem .75rem}
+    .admin-page .editor-card{padding:.9rem}
+    .admin-page .editor-actions .btn,.admin-page .wizard-next{width:100%;max-width:none}
+    .admin-page .wizard-nav{align-items:stretch}
+    .admin-page .wizard-meta{align-items:flex-start;flex-direction:column;gap:.15rem}
+    .admin-page .tbl{font-size:.82rem}
+    .admin-page .tbl th,.admin-page .tbl td{padding:.7rem .65rem}
+  }
 </style>
 </head>
 <body class="admin-page">

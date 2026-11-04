@@ -35,7 +35,7 @@
     const wrapper = document.createElement("div");
     wrapper.className = "project-custom-select";
     const label = select.closest("label");
-    const labelText = [...(label?.childNodes || [])].find((node) => node.nodeType === Node.TEXT_NODE)?.textContent.trim() || "Filter";
+    const labelText = ([...(label?.childNodes || [])].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim())?.textContent || label?.querySelector(":scope > span")?.textContent || "Filter").trim();
     select.classList.add("project-select-native");
     select.tabIndex = -1;
     select.parentNode.insertBefore(wrapper, select);
@@ -123,13 +123,13 @@
     const prices = (project.configurations || []).map((configuration) => configuration.price).filter(Boolean);
     const amenities = (project.amenities || []).filter(Boolean);
     return `<a class="home-project-card" href="/${esc(project.slug)}">
-      <div class="home-project-image">${project.hero_image ? `<img src="${esc(project.hero_image)}" alt="${esc(project.name)}" loading="lazy">` : `<img src="/images/facade.jpg" alt="Residential project" loading="lazy">`}<span class="home-image-arrow" aria-hidden="true">↗</span></div>
-      <div class="home-project-info"><p class="home-project-location">${esc(project.location || "Navi Mumbai")}</p><h3>${esc(project.name)}</h3>
-        ${project.builder ? `<p class="browse-builder">${esc(project.builder)}</p>` : ""}
-        <p class="home-project-types">${esc(types.join(" · ") || "Configuration details available on project page")}</p>
-        ${prices.length ? `<p class="browse-price">${esc(prices.join(" · "))}</p>` : ""}
-        ${amenities.length ? `<p class="browse-amenities">${esc(amenities.slice(0, 3).join(" · "))}${amenities.length > 3 ? ` <span>+${amenities.length - 3} more</span>` : ""}</p>` : ""}
-        <span class="home-project-link">View project details <span aria-hidden="true">→</span></span>
+      <div class="home-project-image">${project.hero_image ? `<img src="${esc(project.hero_image)}" alt="${esc(project.name)}" loading="lazy">` : `<img src="/images/facade.jpg" alt="Residential project" loading="lazy">`}<span class="home-image-arrow" aria-hidden="true"><i class="bi bi-arrow-up-right"></i></span></div>
+      <div class="home-project-info"><p class="home-project-location"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i>${esc(project.location || "Navi Mumbai")}</p><h3>${esc(project.name)}</h3>
+        ${project.builder ? `<p class="browse-builder"><i class="bi bi-building" aria-hidden="true"></i><span>${esc(project.builder)}</span></p>` : ""}
+        <p class="home-project-types"><i class="bi bi-house-door" aria-hidden="true"></i><span>${esc(types.join(" · ") || "Configuration details available on project page")}</span></p>
+        ${prices.length ? `<p class="browse-price"><i class="bi bi-tag" aria-hidden="true"></i><span>${esc(prices.join(" · "))}</span></p>` : ""}
+        ${amenities.length ? `<p class="browse-amenities"><i class="bi bi-stars" aria-hidden="true"></i><span>${esc(amenities.slice(0, 3).join(" · "))}${amenities.length > 3 ? ` <b>+${amenities.length - 3} more</b>` : ""}</span></p>` : ""}
+        <span class="home-project-link">View project details <i class="bi bi-arrow-right" aria-hidden="true"></i></span>
       </div>
     </a>`;
   };
@@ -162,7 +162,7 @@
     $("#projectResultsCount").textContent = `${filtered.length} ${filtered.length === 1 ? "project" : "projects"} found`;
     $("#allProjectList").innerHTML = filtered.length
       ? filtered.map(projectCard).join("")
-      : `<div class="project-no-results"><strong>No projects match these filters.</strong><span>Try changing your search or clearing some filters.</span></div>`;
+      : `<div class="project-no-results"><i class="bi bi-search"></i><strong>No projects match these filters.</strong><span>Try changing your search or clearing some filters.</span></div>`;
     $("#amenitySelectionCount").textContent = selectedAmenities.length ? `${selectedAmenities.length} selected` : "Choose amenities";
   }
 

@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://omkargroup-78cj.onrender.com/api/:path*"
+    },
+    {
+      "source": "/admin/laxman",
+      "destination": "https://omkargroup-78cj.onrender.com/admin/laxman"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "https://omkargroup-78cj.onrender.com/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://omkargroup-78cj.onrender.com/sitemap.xml"
+    },
+    {
+      "source": "/:slug([a-z0-9-]+)",
+      "destination": "https://omkargroup-78cj.onrender.com/:slug"
+    }
+  ]
+}

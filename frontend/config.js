@@ -1,6 +1,7 @@
 // Public values only. Never put secrets here.
 const CONFIG = {
-  API_BASE: "http://localhost:5000",
+  // API requests use the Vercel same-origin rewrites in vercel.json.
+  API_BASE: "",
   PROJECT_SLUG: "national-mount-view",
   BROKER_NAME: "Laxman Survase",          // TODO
   PHONE: "919967287223",               // TODO: country code + number, no + or spaces

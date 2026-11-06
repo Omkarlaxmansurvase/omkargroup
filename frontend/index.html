@@ -17,9 +17,9 @@
 <header class="header solid home-header">
   <a class="brand" href="/" aria-label="Omkar Enterprises home"><img class="brand-logo" src="/images/logo/omkar1logo.png" alt=""><span class="brand-wordmark">Omkar Group<small>Real Estate</small></span></a>
   <nav class="home-nav" id="homeNav" aria-label="Main navigation">
-    <a href="#about">About</a><a href="#projects">Projects</a><a href="#locations">Locations</a><a href="#contact">Contact</a>
+    <a href="#about">About</a><a href="/projects.html">Projects</a><a href="#locations">Locations</a><a href="#contact">Contact</a>
   </nav>
-  <a class="btn btn-gold btn-sm home-header-cta" href="#projects"><i class="bi bi-buildings" aria-hidden="true"></i>Explore projects</a>
+  <a class="btn btn-gold btn-sm home-header-cta" href="/projects.html"><i class="bi bi-buildings" aria-hidden="true"></i>Explore projects</a>
   <button class="home-menu-btn" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="homeNav"><span aria-hidden="true"></span></button>
 </header>
 <main class="home-page">
@@ -28,7 +28,7 @@
       <p class="home-eyebrow"><i class="bi bi-geo-alt" aria-hidden="true"></i>Local guidance for your home search</p>
       <h1>Homes in Navi Mumbai and Panvel</h1>
       <p>Compare residential projects, review configurations and plan a visit with a local authorized channel partner.</p>
-      <div class="home-hero-actions"><a class="btn btn-gold" href="#projects">Explore projects</a><a class="home-text-link" href="#contact">Talk with us</a></div>
+      <div class="home-hero-actions"><a class="btn btn-gold" href="/projects.html">Explore projects</a><a class="home-text-link" href="#contact">Talk with us</a></div>
       <ul class="home-highlights" aria-label="What we help with">
         <li><i class="bi bi-columns-gap" aria-hidden="true"></i>Compare configurations</li><li><i class="bi bi-calendar-check" aria-hidden="true"></i>Site visit support</li><li><i class="bi bi-headset" aria-hidden="true"></i>Direct project team contact</li>
       </ul>
@@ -62,12 +62,12 @@
 
   <section class="home-contact" id="contact">
     <div><div class="home-section-kicker">Get in touch</div><h2>Planning a visit?</h2><p>Ask about a project or arrange a site visit with the project team.</p></div>
-    <div class="home-contact-actions"><a class="btn btn-home-white" data-home-call href="#contact"><i class="bi bi-telephone-fill" aria-hidden="true"></i>Call <span data-home-phone></span></a><a class="btn btn-home-white" data-home-whatsapp href="#contact" target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i>WhatsApp us</a><a class="home-contact-email" data-home-email href="#contact"></a></div>
+    <div class="home-contact-actions"><a class="btn btn-home-white" data-home-call href="#contact"><i class="bi bi-telephone-fill" aria-hidden="true"></i>Call <span data-home-phone></span></a><a class="btn btn-home-white" data-home-whatsapp href="#contact" target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i>WhatsApp us</a><a class="home-contact-email" data-home-email href="#contact"></a><a class="home-contact-address" href="https://www.google.com/maps/search/?api=1&amp;query=Shop+No.+07%2C+Sea+Queen+Excellency%2C+Sector+-+44-A%2C+Seawoods+%28W%29%2C+Navi+Mumbai+-+400706" target="_blank" rel="noopener"><i class="bi bi-geo-alt" aria-hidden="true"></i>Shop No. 07, Sea Queen Excellency, Sector - 44-A, Seawoods (W), Navi Mumbai - 400706.</a></div>
   </section>
 </main>
 <footer class="home-footer">
   <a class="home-footer-brand" href="/" aria-label="Omkar Enterprises home"><img class="home-footer-logo" src="/images/logo/omkar1logo.png" alt=""><span class="footer-wordmark">Omkar Group<small>Real Estate</small></span></a>
-  <p class="home-disclaimer">Independent marketing site of an authorized channel partner. This is not an official builder website. Project details and availability may change; please confirm with the project team.</p>
+  <div class="home-disclaimer"><p>Independent marketing site of an authorized channel partner. This is not an official builder website. Project details and availability may change; please confirm with the project team.</p><address class="home-office-address"><strong>Official office</strong><a href="https://www.google.com/maps/search/?api=1&amp;query=Shop+No.+07%2C+Sea+Queen+Excellency%2C+Sector+-+44-A%2C+Seawoods+%28W%29%2C+Navi+Mumbai+-+400706" target="_blank" rel="noopener">Shop No. 07, Sea Queen Excellency, Sector - 44-A, Seawoods (W), Navi Mumbai - 400706.</a></address></div>
   <div class="home-footer-contact"><strong>Contact</strong><a class="bi bi-telephone" data-home-call href="#contact">Call <span data-home-phone></span></a><a class="bi bi-envelope" data-home-email href="#contact"></a><a class="bi bi-whatsapp" data-home-whatsapp href="#contact" target="_blank" rel="noopener">WhatsApp</a></div>
   <p class="home-copyright">© <span id="currentYear"></span> <span data-footer-broker></span></p>
 </footer>
@@ -91,15 +91,19 @@
   fetch("/api/projects").then(r => r.json()).then(list => {
     const projects = Array.isArray(list) ? list : [];
     document.getElementById("projectCount").textContent = `${projects.length} ${projects.length === 1 ? "project" : "projects"}`;
-    const featuredProjects = projects.slice(0, 3);
+    const olive = projects.find(p => /\bolive\b/i.test(p.name || ""));
+    const national = projects.find(p => /national\s+mount\s+view/i.test(p.name || ""));
+    const supporting = projects.filter(p => p !== olive && p !== national && !/balaji/i.test(p.name || ""));
+    const featuredProjects = [olive, supporting[0], national, ...supporting.slice(1)].filter(Boolean).slice(0, 4);
     document.getElementById("list").innerHTML = featuredProjects.length ? featuredProjects.map(p => {
       const types = (p.configurations || []).map(c => c.type).filter(Boolean);
-      return `<a class="home-project-card" href="/${e(p.slug)}">
+      const isFeature = p === olive || p === national;
+      return `<a class="home-project-card${isFeature ? " featured-project" : ""}" href="/${e(p.slug)}">
         <div class="home-project-image">${p.hero_image ? `<img src="${e(p.hero_image)}" alt="${e(p.name)}" loading="lazy">` : `<img src="/images/facade.jpg" alt="Residential project" loading="lazy">`}<span class="home-image-arrow" aria-hidden="true"><i class="bi bi-arrow-up-right"></i></span></div>
         <div class="home-project-info"><p class="home-project-location"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i>${e(p.location || "Navi Mumbai")}</p><h3>${e(p.name)}</h3><p class="home-project-types"><i class="bi bi-house-door" aria-hidden="true"></i><span>${e(types.join(" · ") || "View project details")}</span></p><span class="home-project-link">Explore project <i class="bi bi-arrow-right" aria-hidden="true"></i></span></div>
       </a>`;
     }).join("") : "<p class='home-empty'>No active projects are available right now. Please check back soon.</p>";
-    document.getElementById("projectCount").textContent = projects.length > 3 ? `Showing 3 of ${projects.length}` : `${projects.length} ${projects.length === 1 ? "project" : "projects"}`;
+    document.getElementById("projectCount").textContent = featuredProjects.length < projects.length ? `Showing ${featuredProjects.length} of ${projects.length}` : `${projects.length} ${projects.length === 1 ? "project" : "projects"}`;
     const locations = [...new Map(projects.filter(p => p.location).map(p => [p.location, p])).values()];
     document.getElementById("locationList").innerHTML = locations.length ? locations.map(p => {
       const map = safeLink(p.map_link) || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.location)}`;

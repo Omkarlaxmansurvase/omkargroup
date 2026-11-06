@@ -7,5 +7,5 @@ const CONFIG = {
   PHONE: "919867905223",               // TODO: country code + number, no + or spaces
   WHATSAPP: "919867905223",            // TODO
   EMAIL: "laxman.s108@gmail.com",            // TODO
-  BROKER_RERA: "[YOUR AGENT RERA NO.]" // TODO
+  BROKER_RERA: "A51700026789" // TODO
 };

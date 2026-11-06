@@ -94,8 +94,10 @@
     const olive = projects.find(p => /\bolive\b/i.test(p.name || ""));
     const national = projects.find(p => /national\s+mount\s+view/i.test(p.name || ""));
     const supporting = projects.filter(p => p !== olive && p !== national && !/balaji/i.test(p.name || ""));
-    const featuredProjects = [olive, supporting[0], national, ...supporting.slice(1)].filter(Boolean).slice(0, 4);
-    document.getElementById("list").innerHTML = featuredProjects.length ? featuredProjects.map(p => {
+    const featuredProjects = [olive, national, ...supporting].filter(Boolean).slice(0, 4);
+    const projectGrid = document.getElementById("list");
+    projectGrid.dataset.visibleCount = String(featuredProjects.length);
+    projectGrid.innerHTML = featuredProjects.length ? featuredProjects.map(p => {
       const types = (p.configurations || []).map(c => c.type).filter(Boolean);
       const isFeature = p === olive || p === national;
       return `<a class="home-project-card${isFeature ? " featured-project" : ""}" href="/${e(p.slug)}">

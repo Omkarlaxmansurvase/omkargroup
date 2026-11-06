@@ -1,9 +1,9 @@
-(() => {
+﻿(() => {
   const $ = (selector) => document.querySelector(selector);
   const esc = (value) => String(value ?? "").replace(/[&<>\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
   let allProjects = [];
 
-  const broker = CONFIG.BROKER_NAME || "Your property consultant";
+  const broker = "Omkar Enterprises";
   document.querySelectorAll("[data-footer-broker]").forEach((node) => node.textContent = broker);
   $("#currentYear").textContent = new Date().getFullYear();
   const phone = String(CONFIG.PHONE || "").replace(/\D/g, "");
@@ -128,7 +128,7 @@
         ${project.builder ? `<p class="browse-builder"><i class="bi bi-building" aria-hidden="true"></i><span>${esc(project.builder)}</span></p>` : ""}
         <p class="home-project-types"><i class="bi bi-house-door" aria-hidden="true"></i><span>${esc(types.join(" · ") || "Configuration details available on project page")}</span></p>
         ${prices.length ? `<p class="browse-price"><i class="bi bi-tag" aria-hidden="true"></i><span>${esc(prices.join(" · "))}</span></p>` : ""}
-        ${amenities.length ? `<p class="browse-amenities"><i class="bi bi-stars" aria-hidden="true"></i><span>${esc(amenities.slice(0, 3).join(" · "))}${amenities.length > 3 ? ` <b>+${amenities.length - 3} more</b>` : ""}</span></p>` : ""}
+        ${amenities.length ? `<p class="browse-amenities"><span>${esc(amenities.slice(0, 3).join(" · "))}${amenities.length > 3 ? ` <b>+${amenities.length - 3} more</b>` : ""}</span></p>` : ""}
         <span class="home-project-link">View project details <i class="bi bi-arrow-right" aria-hidden="true"></i></span>
       </div>
     </a>`;

@@ -9,7 +9,6 @@
   $("#brandName").textContent = p.name;
   $("#brandBy").textContent = p.builder ? "by " + p.builder : "";
   $("#projRera").textContent = p.rera_number ? `Project RERA: ${p.rera_number}` : "";
-  if (p.hero_image) document.documentElement.style.setProperty("--hero", `url("${p.hero_image}")`);
 
   const options = (cfgs.length ? cfgs.map((c) => c.type + (c.size ? " - " + c.size : "")) : ["Not sure yet"])
     .map((o) => `<option>${e(o)}</option>`).join("");
@@ -22,12 +21,12 @@
 
   const heroForm = `
     <form class="card lead-form" data-lead-form novalidate>
-      <h2>Request a private tour</h2>
-      <p class="muted">We call you back within the hour.</p>
+      <h2>Ask about this project</h2>
+      <p class="muted">Share your details to ask about pricing or arrange a site visit.</p>
       <label>Full name<input name="name" autocomplete="name" required></label>
       <label>Phone number<input name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile" required></label>
       <label>Interested in<select name="configuration">${options}</select></label>
-      <button class="btn btn-gold btn-block" type="submit">Get pricing and site visit</button>
+      <button class="btn btn-gold btn-block" type="submit">Send project enquiry</button>
       <p class="form-msg" role="status"></p>
     </form>`;
 
@@ -43,6 +42,7 @@
 
   const html = [
     `<section class="hero">
+      <img class="hero-image" src="${e(p.hero_image || "/images/aerial.jpg")}" alt="${e(p.name)} residential project view" fetchpriority="high">
       <div class="hero-text">
         <p class="tag">${e([types, p.location].filter(Boolean).join(" in "))}</p>
         <h1>${e(p.name)}</h1>
@@ -50,7 +50,6 @@
         <div class="hero-cta">
           <a class="btn btn-gold" href="#contact">Get price and floor plans</a>
           ${p.brochure_url ? `<a class="btn btn-line" href="${e(p.brochure_url)}" target="_blank" rel="noopener">Download brochure</a>` : ""}
-          <a class="btn btn-line" data-wa href="#">Chat on WhatsApp</a>
         </div>
       </div>${heroForm}
     </section>`,
@@ -61,8 +60,8 @@
     gal.length ? `<section class="section" id="gallery"><h2>Gallery</h2><div class="gallery">${gal.map((u, i) => `<img src="${e(u)}" data-zoom alt="${e(p.name)} image ${i + 1}" loading="lazy">`).join("")}</div><p class="note">Images are artistic impressions.</p></section>` : "",
     `<section class="section alt" id="contact"><div class="contact contact-info-only">
       <div>
-        <h2>Book a site visit and get today's price</h2>
-        <p class="sub">Share your number. <span data-broker></span> will call you with the price sheet, payment plan and available floors.</p>
+        <h2>Ask about this project</h2>
+        <p class="sub">Ask about pricing, payment plans, available floors, or arranging a site visit.</p>
         <p class="contact-line"><a data-call href="#">Call <span data-phone></span></a></p>
         <p class="contact-line"><a data-wa href="#">Message on WhatsApp</a></p>
       </div>

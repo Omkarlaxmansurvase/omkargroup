@@ -254,7 +254,7 @@ function fillForm(p = {}) {
 function setWizardStep(step) {
   wizardStep = Math.max(0, Math.min(step, wizardSteps.length - 1));
   $$('[data-wizard-step]').forEach((panel) => { panel.hidden = Number(panel.dataset.wizardStep) !== wizardStep; });
-  $("#wizardProgressFill").style.width = `${((wizardStep + 1) / wizardSteps.length) * 100}%`;
+  $("#wizardProgressFill").style.transform = `scaleX(${(wizardStep + 1) / wizardSteps.length})`;
   $("#wizardStepCount").textContent = `Step ${wizardStep + 1} of ${wizardSteps.length}`;
   $("#wizardStepTitle").textContent = wizardSteps[wizardStep];
   $("#wizardPrev").hidden = wizardStep === 0;

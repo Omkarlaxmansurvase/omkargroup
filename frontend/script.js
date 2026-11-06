@@ -22,11 +22,13 @@ const menuBtn = document.getElementById("menuBtn");
 menuBtn.addEventListener("click", () => {
   const open = nav.classList.toggle("open");
   menuBtn.setAttribute("aria-expanded", open);
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
 });
 nav.addEventListener("click", e => {
   if (e.target.tagName === "A") {
     nav.classList.remove("open");
     menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Open menu");
   }
 });
 

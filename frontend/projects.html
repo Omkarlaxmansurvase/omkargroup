@@ -3,33 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Explore all projects | Laxman Survase</title>
+<title>Explore homes and projects | Omkar Enterprises</title>
 <meta name="description" content="Browse and filter residential projects in Navi Mumbai and Panvel by location, configuration, builder, and amenities.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="/enhance.css">
-<script>document.documentElement.classList.add("js");</script>
+
 <script src="/motion.js" defer></script>
 </head>
 <body>
 <header class="header solid home-header">
-  <a class="brand" href="/" aria-label="Home"><span id="brandName"></span><small>Authorized channel partner</small></a>
-  <nav class="home-nav" aria-label="Main navigation"><a href="/#about">About</a><a href="/projects.html" aria-current="page">Projects</a><a href="/#locations">Locations</a><a href="/#contact">Contact</a></nav>
+  <a class="brand" href="/" aria-label="Omkar Enterprises home"><img class="brand-logo" src="/images/logo/omkar1logo.png" alt=""><span class="brand-wordmark">Omkar Group<small>Real Estate</small></span></a>
+  <nav class="home-nav" id="homeNav" aria-label="Main navigation"><a href="/#about">About</a><a href="/projects.html" aria-current="page">Projects</a><a href="/#locations">Locations</a><a href="/#contact">Contact</a></nav>
   <a class="btn btn-gold btn-sm home-header-cta" href="/#contact"><i class="bi bi-telephone" aria-hidden="true"></i>Talk to us</a>
+  <button class="home-menu-btn" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="homeNav"><span aria-hidden="true"></span></button>
 </header>
 
 <main class="all-projects-page">
-  <section class="all-projects-intro" data-reveal>
+  <section class="all-projects-intro">
     <a class="home-text-link back-home" href="/"><i class="bi bi-arrow-left" aria-hidden="true"></i>Home</a>
     <p class="home-section-kicker">Find your next home</p>
     <h1>Explore all projects</h1>
     <p>Search projects and narrow the list by area, home configuration, builder, and amenities.</p>
   </section>
 
-  <section class="project-browser" aria-label="Project search and filters" data-reveal style="--d:.1s">
+  <section class="project-browser" aria-label="Project search and filters">
     <div class="project-filter-grid">
       <label class="project-search">Search projects<input id="projectSearch" type="search" placeholder="Name, area, builder or detail" autocomplete="off"><i class="bi bi-search search-ico" aria-hidden="true"></i></label>
       <label><span><i class="bi bi-geo-alt label-ico" aria-hidden="true"></i>Location</span><select id="locationFilter"><option value="">All locations</option></select></label>
@@ -38,7 +38,7 @@
       <label><span><i class="bi bi-sort-down label-ico" aria-hidden="true"></i>Sort by</span><select id="sortProjects"><option value="newest">Newest</option><option value="name">Name A–Z</option><option value="location">Location A–Z</option><option value="amenities">Most amenities</option><option value="configurations">Most configurations</option></select></label>
     </div>
     <details class="amenity-filter">
-      <summary><span><i class="bi bi-stars" aria-hidden="true"></i>Filter by amenities</span><small id="amenitySelectionCount">Choose amenities</small></summary>
+      <summary><span>Filter by amenities</span><small id="amenitySelectionCount">Choose amenities</small></summary>
       <p class="amenity-filter-help">Projects must include every selected amenity.</p>
       <div id="amenityOptions" class="amenity-options"><span class="muted">Loading available amenities…</span></div>
     </details>
@@ -51,7 +51,7 @@
 </main>
 
 <footer class="home-footer">
-  <a class="home-footer-brand" href="/"><span data-footer-broker></span><small>Authorized channel partner</small></a>
+  <a class="home-footer-brand" href="/" aria-label="Omkar Enterprises home"><img class="home-footer-logo" src="/images/logo/omkar1logo.png" alt=""><span class="footer-wordmark">Omkar Group<small>Real Estate</small></span></a>
   <p class="home-disclaimer">Independent marketing site of an authorized channel partner. This is not an official builder website. Project details and availability may change; please confirm with the project team.</p>
   <div class="home-footer-contact"><strong>Contact</strong><a class="bi bi-telephone" data-home-call href="#">Call <span data-home-phone></span></a><a class="bi bi-envelope" data-home-email href="#"></a><a class="bi bi-whatsapp" data-home-whatsapp href="#" target="_blank" rel="noopener">WhatsApp</a></div>
   <p class="home-copyright">© <span id="currentYear"></span> <span data-footer-broker></span></p>

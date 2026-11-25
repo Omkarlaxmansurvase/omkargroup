@@ -8,7 +8,7 @@ let wizardStep = 0;
 async function api(path, o = {}) {
   const headers = { Authorization: "Bearer " + sessionStorage.tok };
   if (o.json) { o.body = JSON.stringify(o.json); headers["Content-Type"] = "application/json"; }
-  const r = await fetch(path, { method: o.method || "GET", headers, body: o.body });
+  const r = await fetch(path, { method: o.method || "GET", headers, body: o.body, cache: "no-store" });
   if (r.status === 401 && sessionStorage.tok) { logout(); throw new Error("Session expired. Log in again."); }
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.error || "Request failed");
@@ -49,7 +49,14 @@ function show(tab) {
   ["leads", "projects", "edit"].forEach((t) => ($("#tab-" + t).hidden = t !== tab));
   $$("[data-tab]").forEach((b) => b.classList.toggle("on", b.dataset.tab === tab));
 }
-$$("[data-tab]").forEach((b) => (b.onclick = () => { if (b.dataset.tab === "edit" && !editId) fillForm(); show(b.dataset.tab); }));
+$$("[data-tab]").forEach((b) => (b.onclick = async () => {
+  if (b.dataset.tab === "edit" && !editId) fillForm();
+  show(b.dataset.tab);
+  if (b.dataset.tab === "projects") {
+    try { projects = await api("/api/admin/projects"); renderProjects(); }
+    catch (err) { alert(err.message); }
+  }
+}));
 
 async function loadAll() {
   try {
@@ -151,6 +158,7 @@ $("#leadRows").addEventListener("click", async (e) => {
 
 // ---------- projects list ----------
 function renderProjects() {
+  $("#adminProjectCount").textContent = `${projects.length} project${projects.length === 1 ? "" : "s"}`;
   $("#projRows").innerHTML = projects.map((p) => `<tr>
     <td>${esc(p.name)}<br><span class="muted">${esc(p.location)}</span></td>
     <td><a href="/${esc(p.slug)}" target="_blank" rel="noopener">/${esc(p.slug)}</a></td>

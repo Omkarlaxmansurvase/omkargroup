@@ -23,6 +23,10 @@ db.storage.createBucket(BUCKET, { public: true }).then(() => {}); // no-op if it
 app.set("trust proxy", 1);
 if (process.env.FRONTEND_ORIGIN) app.use(cors({ origin: process.env.FRONTEND_ORIGIN }));
 app.use(express.json({ limit: "1mb" }));
+app.use("/api", (req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+});
 
 // ---------- helpers ----------
 const safeEqual = (a, b) => {

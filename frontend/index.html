@@ -106,7 +106,15 @@
       </a>`;
     }).join("") : "<p class='home-empty'>No active projects are available right now. Please check back soon.</p>";
     document.getElementById("projectCount").textContent = featuredProjects.length < projects.length ? `Showing ${featuredProjects.length} of ${projects.length}` : `${projects.length} ${projects.length === 1 ? "project" : "projects"}`;
-    const locations = [...new Map(projects.filter(p => p.location).map(p => [p.location, p])).values()];
+    const locations = [...new Map(projects.filter(p => p.location && !/\bnerul\b/i.test(p.location)).map(p => [p.location, p])).values()];
+    const oliveLocation = {
+      location: "Olive Boulevard",
+      name: "Olive Boulevard project",
+      map_link: "https://maps.app.goo.gl/SbfHdbqwHsJeYtKB8",
+    };
+    const oliveIndex = locations.findIndex(p => /olive boulevard/i.test(`${p.location} ${p.name}`));
+    if (oliveIndex >= 0) locations[oliveIndex] = oliveLocation;
+    else locations.push(oliveLocation);
     document.getElementById("locationList").innerHTML = locations.length ? locations.map(p => {
       const map = safeLink(p.map_link) || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.location)}`;
       return `<a class="home-location-link" href="${e(map)}" target="_blank" rel="noopener"><span class="home-pin" aria-hidden="true"><i class="bi bi-geo-alt-fill"></i></span><span><strong>${e(p.location)}</strong><small>${e(p.name)}</small></span><span class="home-location-open">Open in Maps <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></span></a>`;
